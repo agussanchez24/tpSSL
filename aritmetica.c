@@ -12,11 +12,13 @@ typedef struct {
 } numeroAstronomico;
 
 numeroAstronomico suma(numeroAstronomico, numeroAstronomico);
+bool esMenor(numeroAstronomico,numeroAstronomico);
+bool sonIguales(numeroAstronomico,numeroAstronomico);
 char agregarCerosIzq(char *,int);
 
 char agregarCerosIzq(char *cadena,int cant){
     if(cant == 0){
-        return(cadena);
+        return(*cadena);
     }
     char *numCeros;
     numCeros = (char *) malloc(101 * sizeof(char));
@@ -24,7 +26,7 @@ char agregarCerosIzq(char *cadena,int cant){
     strcat(numCeros,"0");
     }
     strcat(numCeros,cadena);
-    return(numCeros);
+    return(*numCeros);
 }
 
 
@@ -46,14 +48,13 @@ numeroAstronomico suma(numeroAstronomico numeroAstronomicoUno, numeroAstronomico
     int i = 0;
     int lenUno = strlen(numUno);
     int lenDos = strlen(numDos);
+    unsigned int dif = lenUno - lenDos;
     if(lenUno >= lenDos){  //aca falta arreglar. para que funcione bien los dos numeros tienen que quedar parejos (ej: 0923 y 0003) 
         i = lenUno-1;
-        int dif = lenUno - lenDos;
         agregarCerosIzq(numDos,dif+1);
 	    agregarCerosIzq(numUno,1);
     }else{
         i = lenDos-1;
-        int dif = lenDos - lenUno;
         agregarCerosIzq(numUno,dif+1);
         agregarCerosIzq(numDos,1);
         }
@@ -124,13 +125,71 @@ numeroAstronomico suma(numeroAstronomico numeroAstronomicoUno, numeroAstronomico
     
 }
 
+bool esMenor(numeroAstronomico numeroAstronomicoUno, numeroAstronomico numeroAstronomicoDos){
+    char *numUno;
+    numUno = (char *) malloc(101 * sizeof(char));
+    numUno = numeroAstronomicoUno.entero;
+
+    char *numDos;
+    numDos = (char *) malloc(101 * sizeof(char));
+    numDos = numeroAstronomicoDos.entero;
+
+    int lenUno = strlen(numUno);
+    int lenDos = strlen(numDos);
+
+    if(lenUno==lenDos){
+        while(*numUno != '\0'){
+
+            int num1 = *numUno - '0';
+            int num2 = *numDos - '0';
+            if(num1!=num2){
+                return(num1<num2);
+            }
+            numDos++;
+            numUno++;
+        }
+    }else{
+        return(lenUno<lenDos);
+    }
+}
+
+bool sonIguales(numeroAstronomico numeroAstronomicoUno, numeroAstronomico numeroAstronomicoDos){
+
+char *numUno;
+    numUno = (char *) malloc(101 * sizeof(char));
+    numUno = numeroAstronomicoUno.entero;
+
+    char *numDos;
+    numDos = (char *) malloc(101 * sizeof(char));
+    numDos = numeroAstronomicoDos.entero;
+
+    int lenUno = strlen(numUno);
+    int lenDos = strlen(numDos);
+
+    if(lenUno==lenDos){
+        while(*numUno != '\0'){
+
+            if(*numUno != *numDos){
+                return(false);
+            }
+            numDos++;
+            numUno++;
+        }return(true);
+    }else{
+        return(false);
+    }
+}
+
 
 int main(){
     
     numeroAstronomico astroUno;
     numeroAstronomico astroDos;
-    astroUno.entero = "020";
-    astroDos.entero = "900";
-    suma(astroUno,astroDos);
+    astroUno.entero = "900";
+    astroDos.entero = "90";
+    bool res = esMenor(astroUno,astroDos); //OK
+    bool sonIng = sonIguales(astroUno,astroDos); //Ok
+    printf("%d\n", sonIng);
+    //suma(astroUno,astroDos);
     return 0;
 }
