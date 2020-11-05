@@ -68,6 +68,7 @@ numeroAstronomico crearDesdeCifraSeguidaDeCeros(int num, int ceros){
     if(esOverflow(numeroADevolver)){
         numeroADevolver.entero  = "0";
         getTipoDeError(numeroADevolver);
+    }
     return numeroADevolver;
 }
 
