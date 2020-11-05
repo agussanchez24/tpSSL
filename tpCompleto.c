@@ -33,6 +33,19 @@ int leerArchivoTexto();
 int leerArchivoBinario();
 char* agregarCerosIzq(char *,int); //funcion auxiliar 
 
+char* agregarCerosIzq(char *cadena,int cant){
+    if(cant != 0){
+        //char *numCeros;
+        char *numCeros = (char *) malloc(101 * sizeof(char));
+        //numCeros = "";
+        for(int i=cant;i>0;i--){
+        strcat(numCeros,"0");
+        }
+        strcat(numCeros,cadena);
+        //printf("%s\n",numCeros);
+        return(numCeros);
+    }
+}
 // OK
 numeroAstronomico crearDesdeCadena(char *cadenaAImprimir){
 
@@ -338,7 +351,7 @@ bool sonIguales(numeroAstronomico numeroAstronomicoUno, numeroAstronomico numero
         printf("%s", "Numero astronomico 2: ");
         getTipoDeError(numeroAstronomicoDos);
         return(false); 
-
+    }
     char *numUno;
     numUno = (char *) malloc(101 * sizeof(char));
     numUno = numeroAstronomicoUno.entero;
