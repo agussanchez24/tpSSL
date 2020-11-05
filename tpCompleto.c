@@ -53,8 +53,8 @@ numeroAstronomico crearDesdeCifraSeguidaDeCeros(int num, int ceros){
     numeroAstronomico numeroADevolver;
     int i;
   
- 	char str1[98];
-    char str2[98]; 
+ 	char str1[100];
+    char str2[100]; 
     sprintf(str1,"%d", num);
     sprintf(str2,"%d", 0);
 
@@ -64,6 +64,10 @@ numeroAstronomico crearDesdeCifraSeguidaDeCeros(int num, int ceros){
 	numeroADevolver.entero = str1;
     numeroADevolver.longitudError = 1;
 	printf("El numero astronomico es (%s, %d)", numeroADevolver.entero, numeroADevolver.longitudError);
+
+    if(esOverflow(numeroADevolver)){
+        numeroADevolver.entero  = "0";
+        getTipoDeError(numeroADevolver);
     return numeroADevolver;
 }
 
@@ -326,6 +330,13 @@ bool esMenor(numeroAstronomico numeroAstronomicoUno, numeroAstronomico numeroAst
 }
 
 bool sonIguales(numeroAstronomico numeroAstronomicoUno, numeroAstronomico numeroAstronomicoDos){
+
+    if(esError(numeroAstronomicoUno) || esError(numeroAstronomicoDos)){
+        printf("%s", "Numero astronomico 1: ");
+        getTipoDeError(numeroAstronomicoUno);
+        printf("%s", "Numero astronomico 2: ");
+        getTipoDeError(numeroAstronomicoDos);
+        return(false); 
 
     char *numUno;
     numUno = (char *) malloc(101 * sizeof(char));
