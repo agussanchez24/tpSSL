@@ -25,6 +25,8 @@ bool esSecuenciaNula(numeroAstronomico);
 bool esSecuenciaInvalida(numeroAstronomico);
 bool esOverflow(numeroAstronomico);
 void getTipoDeError(numeroAstronomico);
+int leerArchivoTexto();
+int leerArchivoBinario();
 
 
 // OK
@@ -119,7 +121,14 @@ bool esOverflow(numeroAstronomico numeroAstronomicoAEvaluar){
     return true;
 }
 
-// esPunteroNulo ¿?
+//REVISAR
+bool esPunteroNulo(int* puntero){
+	
+	if (puntero == NULL)
+		return true;
+	else
+		return false;
+}
 
 //REVISAR
 void getTipoDeError(numeroAstronomico numeroAstronomicoAEvaluar){
@@ -139,6 +148,61 @@ void getTipoDeError(numeroAstronomico numeroAstronomicoAEvaluar){
 //OK
 bool esError(numeroAstronomico numeroAstronomicoAEvaluar){
     return (esSecuenciaNula(numeroAstronomicoAEvaluar) || esSecuenciaInvalida(numeroAstronomicoAEvaluar) || esOverflow(numeroAstronomicoAEvaluar));
+}
+
+int leerArchivoTexto(){
+
+	FILE *fp;
+
+    fp = fopen("numeroAstronomico.txt","r");
+    
+    if	(fp == NULL){
+	
+	perror ("Error en la apertura del archivo");
+	return 1;
+	}
+	char character;
+	
+	printf("\nLa cadena leida en el archivo es:\n");
+	while (feof(fp) == 0) {
+	
+	character = fgetc(fp);
+	
+	if(character == 35) //este numero representa a # en ASCII
+		break;
+	else
+	printf("%c", character);
+
+}
+
+}
+
+
+int leerArchivoBinario(){
+
+	FILE *fp;
+
+    fp = fopen("numeroAstronomico.txt","rb");
+    
+    if	(fp == NULL){
+	
+	perror ("Error en la apertura del archivo");
+	return 1;
+	}
+	char character;
+	
+	printf("\nLa cadena leida en el archivo es:\n");
+	while (feof(fp) == 0) {
+	
+	character = fgetc(fp);
+	
+	if(character == 35)
+		break;
+	else
+	printf("%c", character);
+
+}
+
 }
 
 
