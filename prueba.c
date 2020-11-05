@@ -150,6 +150,50 @@ bool esError(numeroAstronomico numeroAstronomicoAEvaluar){
     return (esSecuenciaNula(numeroAstronomicoAEvaluar) || esSecuenciaInvalida(numeroAstronomicoAEvaluar) || esOverflow(numeroAstronomicoAEvaluar));
 }
 
+void mostrar(char *line, int cantidad)
+{
+	
+	int i, x;
+	int posicionactual = cantidad*3;
+	int posicionpunto = 1;
+
+  //imprimo tantos strings de 3 numeros como cantidad pase como parametro. 
+  //cada 3 posiciones imprimo un punto, si es que no lleguC) a la cantidad max (para que no quede al final).
+
+	
+	for (i = 0; i < cantidad * 3; i++){
+      printf ("%c", line[i]);
+      if (posicionpunto == 3 && i < (cantidad * 3) - 1)	{
+		printf (".");
+		posicionpunto = 0;
+	  }
+    posicionpunto++;
+    }
+	printf ("\n");
+	posicionpunto = 1;
+
+  //mientras el numero astronomico exista, devuelvo strings de 3 numeros
+  //siendo la cantidad 1 unidad menos a lo que pase por parametro en cada linea
+  
+  
+
+    while (line[posicionactual] != '\0'){
+      for (x = 0; x < (cantidad - 1) * 3; x++){
+      	if(line[posicionactual] != '\0'){
+	    printf ("%c", line[posicionactual]);
+	    posicionactual++;
+	    if (posicionpunto == 3 && x < ((cantidad - 1) * 3) - 1){
+	        printf (".");
+            posicionpunto = 0;
+	    }
+	    posicionpunto++;
+    }
+    }
+    posicionpunto = 1;
+    printf ("\n");
+    }
+}
+
 int leerArchivoTexto(){
 
 	FILE *fp;
@@ -211,6 +255,7 @@ int main(){
 //    numeroAstronomico astron;
 //    astron.entero = "352asd35";
 //    astron.longitudError = 2;
-    crearDesdeCifraSeguidaDeCeros(1234, 8);
+//   crearDesdeCifraSeguidaDeCeros(1234, 22);
+//  mostrar("123456782345678912345678912312233456123456123456123", 4);
     return 0;
 }
