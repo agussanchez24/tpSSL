@@ -45,12 +45,12 @@ numeroAstronomico suma(numeroAstronomico numeroAstronomicoUno, numeroAstronomico
     numDos = (char *) malloc(101 * sizeof(char));
     numDos = numeroAstronomicoDos.entero;
 
-    char carry = '0';
+    int carry = 0;
     int i = 0;
     int lenUno = strlen(numUno);
     int lenDos = strlen(numDos);
     int dif = abs(lenUno - lenDos);
-    if(lenUno >= lenDos){  //aca falta arreglar. para que funcione bien los dos numeros tienen que quedar parejos (ej: 0923 y 0003) 
+    if(lenUno >= lenDos){  
         
         numDos = agregarCerosIzq(numDos,dif+1);
 	    numUno = agregarCerosIzq(numUno,1);
@@ -65,15 +65,13 @@ numeroAstronomico suma(numeroAstronomico numeroAstronomicoUno, numeroAstronomico
         int num1 = numUno[i] - '0';
         int num2 = numDos[i] - '0';
 
-        if(carry == '0'){
+        if(carry == 0){
             
             int res = (num1 + num2);
-            char carryTemp[1];
             char resultado[2];
             if(res >= 10){
                 res = res%10;
-                int carryNum = (num1 + num2)/10;
-                carry =  carryNum + '0' ; 
+                carry = (num1 + num2)/10;
             
             }
             
@@ -89,20 +87,17 @@ numeroAstronomico suma(numeroAstronomico numeroAstronomicoUno, numeroAstronomico
         }else
         {
             
-            int carryNum = carry - '0';
-            int res = (num1 + num2 + carryNum);
-            char carryTemp[1];
+
+            int res = (num1 + num2 + carry);
             char resultado[2];
             if(res >= 10){
                 res = res%10;
-                int carryNum = (num1 + num2 + carryNum)/10;
-                printf("%d\n",carryNum);
-                carry =  carryNum + 48; 
-                printf("%c\n",carry);
+                carry = (num1 + num2 + carry)/10;
+
             }else{
-                carry = '0';
+                carry = 0;
             }
-            //printf("%d\n",res);
+           
             char *numInv;
             numInv = (char *) malloc(101 * sizeof(char));
             sprintf(resultado,"%d",res);
@@ -116,7 +111,7 @@ numeroAstronomico suma(numeroAstronomico numeroAstronomicoUno, numeroAstronomico
     }
     resultadoAstronomico.entero = resultadoAstro;
     return(resultadoAstronomico);
-    //printf("%s\n",resultadoAstro);
+    
     
 }
 
@@ -182,7 +177,7 @@ int main(){
     numeroAstronomico astroUno;
     numeroAstronomico astroDos;
     numeroAstronomico astroRes;
-    astroUno.entero = "10";
+    astroUno.entero = "5";
     astroDos.entero = "3";
     bool res = esMenor(astroUno,astroDos); //OK
     bool sonIng = sonIguales(astroUno,astroDos); //Ok
